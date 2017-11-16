@@ -1,22 +1,25 @@
 $(function(){
 
     var model = {
+        // create localStorage
         init: function() {
             if (!localStorage.notes) {
                 localStorage.notes = JSON.stringify([]);
             }
         },
+        // create data array to be added notes
         add: function(obj) {
             var data = JSON.parse(localStorage.notes);
             data.push(obj);
             localStorage.notes = JSON.stringify(data);
         },
+        //  show all notes in localStorage
         getAllNotes: function() {
             return JSON.parse(localStorage.notes);
         }
     };
 
-
+    //
     var octopus = {
         addNewNote: function(noteStr) {
             model.add({
@@ -29,6 +32,7 @@ $(function(){
             return model.getAllNotes();
         },
 
+        // initialize model and view
         init: function() {
             model.init();
             view.init();
@@ -38,6 +42,7 @@ $(function(){
 
     var view = {
         init: function() {
+          // the operate container with tools which can be a input blank or a button
             this.noteList = $('#notes');
             var newNoteForm = $('#new-note-form');
             var newNoteContent = $('#new-note-content');
@@ -48,6 +53,7 @@ $(function(){
             });
             view.render();
         },
+        // loop every element in array , add it to notelist and render it
         render: function(){
             var htmlStr = '';
             octopus.getNotes().forEach(function(note){
@@ -59,5 +65,6 @@ $(function(){
         }
     };
 
+    // initialize app
     octopus.init();
 });
